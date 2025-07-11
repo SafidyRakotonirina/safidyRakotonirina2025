@@ -33,14 +33,14 @@ export const Home: React.FC = () => {
     {
       title: "Template portFolio",
       description: "Html, Css, Js, Php, Vs Code",
-      image: "/api/placeholder/400/300",
+      image: "/public/images/extrait portfolio.png",
       tags: ["HTML", "CSS", "JavaScript", "PHP"],
       link: "#"
     },
     {
       title: "MotorShop",
       description: "Figma, Html, Css, Js, Php, Vs Code",
-      image: "/api/placeholder/400/300",
+      image: "/public/images/extrait.png",
       tags: ["HTML", "CSS", "JavaScript", "PHP"],
       link: "#"
     },

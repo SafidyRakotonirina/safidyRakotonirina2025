@@ -1,8 +1,11 @@
 import { ArrowUp, Code, Download, ExternalLink, Github, Instagram, Linkedin, MessageCircle, Send, Menu, X } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Home: React.FC = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const navigate = useNavigate();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -107,7 +110,7 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="w-full xl:p-25 relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
+    <div className="w-full xl:px-25 relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/80 backdrop-blur-md' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,22 +121,28 @@ export const Home: React.FC = () => {
               </div>
               <span className="text-lg sm:text-xl font-bold">Safidy</span>
             </div>
-            
+
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-4 lg:space-x-8">
-              <button 
-                onClick={() => setActiveSection('home')}
+              <button
+                onClick={() => {
+                  setActiveSection('home');
+                  navigate('/');
+                }}
                 className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'home' ? 'text-blue-400' : ''}`}
               >
                 Accueil
               </button>
-              <button 
-                onClick={() => setActiveSection('projects')}
+              <button
+                onClick={() => {
+                  setActiveSection('projet');
+                  navigate('/Projet');
+                }}
                 className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'projects' ? 'text-blue-400' : ''}`}
               >
                 Projets
               </button>
-              <button 
+              <button
                 onClick={() => setActiveSection('contact')}
                 className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'contact' ? 'text-blue-400' : ''}`}
               >
@@ -157,20 +166,23 @@ export const Home: React.FC = () => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-black/90 backdrop-blur-md border-t border-gray-700">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <button 
-                onClick={() => {setActiveSection('home'); closeMobileMenu();}}
+              <button
+                onClick={() => { setActiveSection('home'); closeMobileMenu(); }}
                 className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === 'home' ? 'text-blue-400' : ''}`}
               >
                 Accueil
               </button>
-              <button 
-                onClick={() => {setActiveSection('projects'); closeMobileMenu();}}
+              <button
+                onClick={() => {
+                  setActiveSection('projet');
+                  navigate('/Projet');
+                }}
                 className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === 'projects' ? 'text-blue-400' : ''}`}
               >
                 Projets
               </button>
-              <button 
-                onClick={() => {setActiveSection('contact'); closeMobileMenu();}}
+              <button
+                onClick={() => { setActiveSection('contact'); closeMobileMenu(); }}
                 className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === 'contact' ? 'text-blue-400' : ''}`}
               >
                 Contact
@@ -196,16 +208,16 @@ export const Home: React.FC = () => {
                   Je suis un développeur web <span className="text-blue-400 font-semibold">FRONT-END</span> passionné par la création de sites modernes, performants et dynamiques.
                 </p>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button 
+                <button
                   className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform flex items-center gap-2 justify-center text-sm sm:text-base"
                   onClick={handleDownload}
                 >
                   <Download size={18} />
                   Télécharger CV
                 </button>
-                <button 
+                <button
                   onClick={() => setActiveSection('projects')}
                   className="border border-gray-600 px-6 sm:px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm sm:text-base"
                 >
@@ -230,8 +242,8 @@ export const Home: React.FC = () => {
               <div className="relative">
                 <div className="w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full p-1">
                   <div className="w-full h-full bg-gray-200 rounded-full overflow-hidden">
-                    <img 
-                      src="/images/pdp.png" 
+                    <img
+                      src="/images/pdp.png"
                       alt="Safidy Rakotonirina"
                       className="w-full h-full object-cover"
                     />
@@ -256,12 +268,12 @@ export const Home: React.FC = () => {
               </h2>
               <div className="space-y-4 sm:space-y-6 text-sm sm:text-base lg:text-lg text-gray-300 text-center lg:text-left">
                 <p>
-                  Bonjour, je m'appelle Safidy et je suis un <span className="text-blue-400 font-semibold">développeur web back-end</span> passionné. 
-                  Je maîtrise plusieurs langages de programmation, dont <span className="text-yellow-400">HTML</span>, <span className="text-blue-400">CSS</span>, 
+                  Bonjour, je m'appelle Safidy et je suis un <span className="text-blue-400 font-semibold">développeur web back-end</span> passionné.
+                  Je maîtrise plusieurs langages de programmation, dont <span className="text-yellow-400">HTML</span>, <span className="text-blue-400">CSS</span>,
                   <span className="text-yellow-300"> JavaScript</span> et <span className="text-purple-400">PHP</span>.
                 </p>
                 <p>
-                  Toujours curieux et motivé, j'aime découvrir de nouvelles technologies et m'investir pleinement 
+                  Toujours curieux et motivé, j'aime découvrir de nouvelles technologies et m'investir pleinement
                   dans le plaisir d'apprendre et de les maîtriser.
                 </p>
               </div>
@@ -311,7 +323,7 @@ export const Home: React.FC = () => {
                   <span className="text-blue-400 font-semibold text-sm sm:text-base">{skill.level}%</span>
                 </div>
                 <div className="w-full bg-gray-700 rounded-full h-2">
-                  <div 
+                  <div
                     className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000"
                     style={{ width: `${skill.level}%` }}
                   ></div>
@@ -332,8 +344,8 @@ export const Home: React.FC = () => {
             {projects.map((project, index) => (
               <div key={index} className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700 overflow-hidden hover:border-blue-500 transition-all duration-300 group">
                 <div className="relative overflow-hidden">
-                  <img 
-                    src={project.image} 
+                  <img
+                    src={project.image}
                     alt={project.title}
                     className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                   />

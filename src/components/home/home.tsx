@@ -192,7 +192,7 @@ export const Home: React.FC = () => {
                   Safidy <span className="text-gray-400">Rakotonirina</span>
                 </h2>
                 <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0">
-                  Je suis un développeur web <span className="text-blue-400 font-semibold">BACK-END</span> passionné par la création de sites modernes, performants et dynamiques.
+                  Je suis un développeur web <span className="text-blue-400 font-semibold">FRONT-END</span> passionné par la création de sites modernes, performants et dynamiques.
                 </p>
               </div>
               

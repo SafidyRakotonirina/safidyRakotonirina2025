@@ -24,8 +24,8 @@ export const Home: React.FC = () => {
     { name: 'HTML', level: 90, icon: '🌐' },
     { name: 'CSS', level: 85, icon: '🎨' },
     { name: 'JavaScript', level: 88, icon: '⚡' },
-    { name: 'React Typescript', level: 70, icon: '🌀' },
-    { name: 'PHP', level: 82, icon: '🔧' },
+    { name: 'React Typescript', level: 75, icon: '🌀' },
+    { name: 'PHP', level: 70, icon: '🔧' },
     { name: 'VS Code', level: 95, icon: '💻' },
     { name: 'Figma', level: 78, icon: '🎯' }
   ];

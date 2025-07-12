@@ -1,14 +1,45 @@
-import { ArrowUp, ExternalLink, Github, Code, Calendar, User, Tag, Menu, X, ArrowLeft } from 'lucide-react';
+import { ArrowUp, ExternalLink, Github, Code, Calendar, User, Tag, Menu, X, ArrowLeft, Send } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const ProjetPage: React.FC = () => {
-   const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('home');
   const navigate = useNavigate();
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = "/cv-Rakotonirina SAFIDY Ny Aina.pdf";
+    link.download = "cv-Rakotonirina SAFIDY Ny Aina.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const [isDiscussion, setIsDiscussion] = useState(false);
+
+  const handleFormSubmit = () => {
+    console.log('Form submitted:', formData);
+    alert('Message envoyé avec succès!');
+    setFormData({ name: '', email: '', phone: '', message: '' });
+  };
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -136,8 +167,8 @@ export const ProjetPage: React.FC = () => {
     }
   ];
 
-  const filteredProjects = selectedCategory === 'all' 
-    ? projects 
+  const filteredProjects = selectedCategory === 'all'
+    ? projects
     : projects.filter(project => project.category === selectedCategory);
 
   const [isVisible, setIsVisible] = useState(false);
@@ -195,7 +226,7 @@ export const ProjetPage: React.FC = () => {
               </div>
               <span className="text-lg sm:text-xl font-bold">Safidy</span>
             </div>
-            
+
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-4 lg:space-x-8">
               <button
@@ -207,13 +238,13 @@ export const ProjetPage: React.FC = () => {
               >
                 Accueil
               </button>
-              <button 
+              <button
                 onClick={() => setActiveSection('projet')}
                 className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'projet' ? 'text-blue-400' : ''}`}
               >
                 Projets
               </button>
-              <button 
+              <button
                 onClick={() => setActiveSection('contact')}
                 className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'contact' ? 'text-blue-400' : ''}`}
               >
@@ -237,7 +268,7 @@ export const ProjetPage: React.FC = () => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-black/90 backdrop-blur-md border-t border-gray-700">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <button 
+              <button
                 onClick={() => {
                   setActiveSection('home');
                   navigate('/home');
@@ -246,7 +277,7 @@ export const ProjetPage: React.FC = () => {
               >
                 Accueil
               </button>
-              <button 
+              <button
                 onClick={() => {
                   setActiveSection('projet');
                 }}
@@ -254,8 +285,8 @@ export const ProjetPage: React.FC = () => {
               >
                 Projets
               </button>
-              <button 
-                onClick={() => {setActiveSection('contact'); closeMobileMenu();}}
+              <button
+                onClick={() => { setActiveSection('contact'); closeMobileMenu(); }}
                 className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === 'contact' ? 'text-blue-400' : ''}`}
               >
                 Contact
@@ -271,13 +302,16 @@ export const ProjetPage: React.FC = () => {
           <div className="text-center space-y-6">
             <div className="inline-flex items-center gap-2 bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-700">
               <ArrowLeft size={16} />
-              <span className="text-sm text-gray-300">Retour à l'accueil</span>
+              <span className="text-sm text-gray-300 cursor-pointer" onClick={() => {
+                  setActiveSection('home');
+                  navigate('/home');
+                }}>Retour à l'accueil</span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
               Mes Projets
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto">
-              Découvrez mes créations et réalisations en développement web, mobile et design. 
+              Découvrez mes créations et réalisations en développement web, mobile et design.
               Chaque projet reflète ma passion pour l'innovation et la qualité.
             </p>
           </div>
@@ -292,11 +326,10 @@ export const ProjetPage: React.FC = () => {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${
-                  selectedCategory === category.id
+                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${selectedCategory === category.id
                     ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
                     : 'bg-gray-800/50 backdrop-blur-sm text-gray-300 hover:bg-gray-700/50 border border-gray-700'
-                }`}
+                  }`}
               >
                 {category.name}
                 <span className="ml-2 text-xs opacity-70">({category.count})</span>
@@ -313,8 +346,8 @@ export const ProjetPage: React.FC = () => {
             {filteredProjects.map((project) => (
               <div key={project.id} className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700 overflow-hidden hover:border-blue-500 transition-all duration-300 group">
                 <div className="relative overflow-hidden">
-                  <img 
-                    src={project.image} 
+                  <img
+                    src={project.image}
                     alt={project.title}
                     className="w-full h-48 sm:h-56 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -335,7 +368,7 @@ export const ProjetPage: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="p-4 sm:p-6">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
@@ -346,11 +379,11 @@ export const ProjetPage: React.FC = () => {
                       {new Date(project.date).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
                     </div>
                   </div>
-                  
+
                   <p className="text-gray-300 mb-4 text-sm sm:text-base line-clamp-3">
                     {project.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tag, tagIndex) => (
                       <span key={tagIndex} className="px-2 sm:px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs sm:text-sm font-medium">
@@ -358,7 +391,7 @@ export const ProjetPage: React.FC = () => {
                       </span>
                     ))}
                   </div>
-                  
+
                   <div className="space-y-2">
                     <h4 className="text-sm font-semibold text-gray-300 flex items-center gap-1">
                       <Tag size={14} />
@@ -424,20 +457,88 @@ export const ProjetPage: React.FC = () => {
               Vous avez un projet en tête ?
             </h2>
             <p className="text-gray-300 mb-6 sm:mb-8 text-base sm:text-lg">
-              Discutons de vos idées et créons ensemble quelque chose d'exceptionnel. 
+              Discutons de vos idées et créons ensemble quelque chose d'exceptionnel.
               Je suis toujours ouvert aux nouveaux défis et collaborations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform text-sm sm:text-base">
+              <button className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform text-sm sm:text-base"
+                onClick={() => setIsDiscussion(true)}>
                 Discuter de mon projet
               </button>
-              <button className="border border-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm sm:text-base">
+              <button className="border border-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm sm:text-base" onClick={handleDownload}>
                 Voir mon CV
               </button>
             </div>
           </div>
         </div>
       </section>
+      {isDiscussion && (
+        <div className=' top-0 left-0 fixed flex items-center justify-center w-full py-12 sm:py-16 px-4 sm:px-6 lg:px-8 inset-0 bg-black/50 backdrop-blur-sm'>
+          <div className='inset-0 bg-white/30 backdrop-blur-sm p-10 rounded-xl'>
+            <div className="max-w-2xl mx-auto">
+              <div className="space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Votre nom"
+                      className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Votre email"
+                      className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="Votre numero de telephone"
+                    className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
+                  />
+                </div>
+                <div>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Votre message"
+                    rows={5}
+                    className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors resize-none text-sm sm:text-base"
+                  ></textarea>
+                </div>
+                <div className="text-center flex justify-between">
+                  <button
+                    className="bg-gradient-to-r from-blue-500 to-purple-600 px-8 sm:px-12 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform flex items-center gap-2 mx-auto text-sm sm:text-base"
+                    onClick={()=>setIsDiscussion(false)}
+                  >
+                    Fermer
+                  </button>
+                  <button
+                    onClick={handleFormSubmit}
+                    className="bg-gradient-to-r from-blue-500 to-purple-600 px-8 sm:px-12 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform flex items-center gap-2 mx-auto text-sm sm:text-base"
+                  >
+                    <Send size={18} />
+                    Envoyer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Scroll to Top Button */}
       {isVisible && (

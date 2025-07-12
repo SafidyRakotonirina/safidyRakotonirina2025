@@ -95,6 +95,13 @@ export const Home: React.FC = () => {
       behavior: "smooth",
     });
   };
+  const scrollToSection = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
 
   useEffect(() => {
     window.addEventListener("scroll", toggleVisibility);
@@ -143,8 +150,9 @@ export const Home: React.FC = () => {
                 Projets
               </button>
               <button
-                onClick={() => setActiveSection('contact')}
-                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'contact' ? 'text-blue-400' : ''}`}
+                onClick={() => scrollToSection('contact')}
+                
+                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'contact' ? 'text-blue-400' : '' }`}
               >
                 Contact
               </button>
@@ -379,7 +387,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8" id='contact'>
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
             Send message

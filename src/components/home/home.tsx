@@ -33,14 +33,14 @@ export const Home: React.FC = () => {
     {
       title: "Template portFolio",
       description: "Html, Css, Js, Php, Vs Code",
-      image: "/public/images/extrait portfolio.png",
+      image: "/images/extrait portfolio.png",
       tags: ["HTML", "CSS", "JavaScript", "PHP"],
       link: "#"
     },
     {
       title: "MotorShop",
       description: "Figma, Html, Css, Js, Php, Vs Code",
-      image: "/public/images/extrait.png",
+      image: "/images/extrait.png",
       tags: ["HTML", "CSS", "JavaScript", "PHP"],
       link: "#"
     },
@@ -230,7 +230,7 @@ export const Home: React.FC = () => {
                 <div className="w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full p-1">
                   <div className="w-full h-full bg-gray-200 rounded-full overflow-hidden">
                     <img 
-                      src="/public/images/pdp.png" 
+                      src="/images/pdp.png" 
                       alt="Safidy Rakotonirina"
                       className="w-full h-full object-cover"
                     />

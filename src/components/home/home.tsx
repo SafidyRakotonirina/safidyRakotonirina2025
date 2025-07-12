@@ -40,7 +40,7 @@ export const Home: React.FC = () => {
     {
       title: "MotorShop",
       description: "Figma, Html, Css, Js, Php, Vs Code",
-      image: "/images/extrait.png",
+      image: "/images/extrait.PNG",
       tags: ["HTML", "CSS", "JavaScript", "PHP"],
       link: "#"
     },

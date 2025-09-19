@@ -24,13 +24,13 @@ export const Home: React.FC = () => {
   }, []);
 
   const skills = [
-    { name: 'HTML', level: 90, icon: '🌐' },
-    { name: 'CSS', level: 85, icon: '🎨' },
-    { name: 'JavaScript', level: 88, icon: '⚡' },
-    { name: 'React Typescript', level: 75, icon: '🌀' },
-    { name: 'PHP', level: 70, icon: '🔧' },
-    { name: 'VS Code', level: 95, icon: '💻' },
-    { name: 'Figma', level: 78, icon: '🎯' }
+    { name: 'HTML', level: 90, icon: "/images/logo-html.png" },
+    { name: 'CSS', level: 85, icon: "/images/logo-css.png" },
+    { name: 'JavaScript', level: 88, icon: "/images/logo-js.png" },
+    { name: 'React Typescript', level: 75, icon: "/images/logo-react.png" },
+    { name: 'PHP', level: 70, icon: "/images/logo-php.png" },
+    { name: 'VS Code', level: 95, icon: "/images/logo-vscode.png" },
+    { name: 'Figma', level: 78, icon: "/images/logo-figma.png" }
   ];
 
   const projects = [
@@ -96,11 +96,11 @@ export const Home: React.FC = () => {
     });
   };
   const scrollToSection = (id: string) => {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-};
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
 
   useEffect(() => {
@@ -126,7 +126,7 @@ export const Home: React.FC = () => {
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center font-bold text-sm sm:text-base">
                 SR
               </div>
-              <span className="text-lg sm:text-xl font-bold">Safidy</span>
+              <span className="text-lg sm:text-xl font-bold">Safidy Rakotonirina</span>
             </div>
 
             {/* Desktop Menu */}
@@ -151,8 +151,8 @@ export const Home: React.FC = () => {
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                
-                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'contact' ? 'text-blue-400' : '' }`}
+
+                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'contact' ? 'text-blue-400' : ''}`}
               >
                 Contact
               </button>
@@ -320,25 +320,36 @@ export const Home: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
             Skills
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {skills.map((skill, index) => (
-              <div key={index} className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-2xl border border-gray-700 hover:border-blue-500 transition-all duration-300">
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl">{skill.icon}</span>
-                    <h3 className="text-lg sm:text-xl font-semibold">{skill.name}</h3>
+              <div
+                key={index}
+                className="bg-gray-900/60 backdrop-blur-md p-6 rounded-2xl border border-gray-800 hover:border-blue-500/70 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-500"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={skill.icon}
+                      alt={skill.name}
+                      className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+                    />
+                    <h3 className="text-lg sm:text-xl font-bold text-white">{skill.name}</h3>
                   </div>
-                  <span className="text-blue-400 font-semibold text-sm sm:text-base">{skill.level}%</span>
+                  <span className="text-blue-400 font-semibold text-sm sm:text-base">
+                    {skill.level}%
+                  </span>
                 </div>
-                <div className="w-full bg-gray-700 rounded-full h-2">
+
+                <div className="w-full bg-gray-700/60 rounded-full h-2 overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000"
+                    className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-2 rounded-full transition-[width] duration-1000 ease-out"
                     style={{ width: `${skill.level}%` }}
                   ></div>
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -378,7 +389,7 @@ export const Home: React.FC = () => {
               </div>
             ))}
           </div>
-          <div className="text-center mt-8 sm:mt-12">
+          <div className="text-center mt-8 sm:mt-12" onClick={() => {navigate('/Projet') }}>
             <button className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform text-sm sm:text-base">
               Afficher tous
             </button>

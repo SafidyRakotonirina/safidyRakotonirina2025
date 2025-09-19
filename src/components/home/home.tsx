@@ -305,9 +305,18 @@ export const Home: React.FC = () => {
                       <h4 className="text-lg sm:text-xl font-semibold text-purple-400">GRAFIKART</h4>
                       <p className="text-sm sm:text-base text-gray-400">Figma</p>
                     </div>
-                    <span className="text-xs sm:text-sm text-gray-400">2025</span>
+                    <span className="text-xs sm:text-sm text-gray-400">Mai 2025</span>
                   </div>
                 </div>
+                <div className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-2xl border border-gray-700">
+                  <div className="flex flex-col sm:flex-row justify-between items-start mb-4 gap-2">
+                    <div>
+                      <h4 className="text-lg sm:text-xl font-semibold text-purple-400">RAPEX GROUP</h4>
+                      <p className="text-sm sm:text-base text-gray-400">Stagiaire en developpement web</p>
+                    </div>
+                    <span className="text-xs sm:text-sm text-gray-400">Juin 2025 - Aout 2025</span>
+                  </div>
+                  </div>
               </div>
             </div>
           </div>

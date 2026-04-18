@@ -27,6 +27,7 @@ export const Home: React.FC = () => {
     { name: 'HTML', level: 90, icon: "/images/logo-html.png" },
     { name: 'CSS', level: 85, icon: "/images/logo-css.png" },
     { name: 'JavaScript', level: 88, icon: "/images/logo-js.png" },
+    { name: 'Nestjs', level: 70, icon: "/images/nest.png" },
     { name: 'React Typescript', level: 75, icon: "/images/logo-react.png" },
     { name: 'PHP', level: 70, icon: "/images/logo-php.png" },
     { name: 'VS Code', level: 95, icon: "/images/logo-vscode.png" },
@@ -117,7 +118,7 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="w-full xl:px-25 relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
+    <div className="w-screen xl:px-25 relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/80 backdrop-blur-md' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -234,14 +235,14 @@ export const Home: React.FC = () => {
               </div>
 
               <div className="flex gap-3 sm:gap-4 justify-center lg:justify-start">
-                <a href="#" className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                  <MessageCircle size={18} className="sm:w-6 sm:h-6" />
+                <a href="#" className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform ">
+                  <MessageCircle size={18} className="sm:w-6 sm:h-6 text-white" />
                 </a>
                 <a href="#" className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                  <Send size={18} className="sm:w-6 sm:h-6" />
+                  <Send size={18} className="sm:w-6 sm:h-6 text-white " />
                 </a>
                 <a href="#" className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                  <Linkedin size={18} className="sm:w-6 sm:h-6" />
+                  <Linkedin size={18} className="sm:w-6 sm:h-6 text-white" />
                 </a>
               </div>
             </div>
@@ -486,17 +487,17 @@ export const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm sm:text-base text-center sm:text-left">
-              © Safidy Rakotonirina 2025
+              © Safidy Rakotonirina 
             </p>
             <div className="flex gap-3 sm:gap-4">
               <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                <Instagram size={16} className="sm:w-5 sm:h-5" />
+                <Instagram size={16} className="sm:w-5 sm:h-5 text-white" />
               </a>
               <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 bg-green-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                <MessageCircle size={16} className="sm:w-5 sm:h-5" />
+                <MessageCircle size={16} className="sm:w-5 sm:h-5 text-white" />
               </a>
               <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                <Github size={16} className="sm:w-5 sm:h-5" />
+                <Github size={16} className="sm:w-5 sm:h-5 text-white" />
               </a>
             </div>
           </div>

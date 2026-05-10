@@ -91,6 +91,38 @@ export const Home: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const experiences = [
+    {
+      company: "GASY TECH",
+      role: "Formation développement web",
+      description:
+        "HTML, CSS, JavaScript, PHP — bases solides du développement web.",
+      date: "Déc 2024 - Mars 2025",
+      color: "text-blue-400",
+      border: "border-blue-400",
+      dot: "bg-blue-400",
+    },
+    {
+      company: "GRAFIKART",
+      role: "Formation Design & JavaScript avancé",
+      description: "Figma, approfondissement JavaScript et TypeScript.",
+      date: "Mai 2025",
+      color: "text-purple-400",
+      border: "border-purple-400",
+      dot: "bg-purple-400",
+    },
+    {
+      company: "RAPEX GROUP",
+      role: "Stagiaire → Développeur Fullstack",
+      description:
+        "Stage en développement web, puis retenu en poste fixe en tant que développeur Fullstack.",
+      date: "Juin 2025 - Présent",
+      color: "text-emerald-400",
+      border: "border-emerald-400",
+      dot: "bg-emerald-400",
+    },
+  ];
+
   const skills = [
     { name: "HTML", level: 90, icon: "/images/logo-html.png" },
     { name: "CSS", level: 85, icon: "/images/logo-css.png" },
@@ -421,54 +453,47 @@ export const Home: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-center">
-                FORMATION
+              <h3 className="text-xl sm:text-2xl font-bold mb-8 text-center">
+                EXPÉRIENCES
               </h3>
-              <div className="space-y-4 sm:space-y-6">
-                <div className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-2xl border border-gray-700">
-                  <div className="flex flex-col sm:flex-row justify-between items-start mb-4 gap-2">
-                    <div>
-                      <h4 className="text-lg sm:text-xl font-semibold text-blue-400">
-                        GASY TECH
-                      </h4>
-                      <p className="text-sm sm:text-base text-gray-400">
-                        html/css/js/php
-                      </p>
+
+              <div className="relative">
+                {/* Ligne verticale */}
+                <div className="absolute left-4 top-0 bottom-0 w-px bg-gray-700" />
+
+                <div className="space-y-6">
+                  {experiences.map((exp, index) => (
+                    <div key={index} className="relative flex gap-6 pl-12">
+                      {/* Dot */}
+                      <div
+                        className={`absolute left-0 top-1 w-8 h-8 rounded-full ${exp.dot} bg-opacity-20 border-2 ${exp.border} flex items-center justify-center`}
+                      >
+                        <div
+                          className={`w-2.5 h-2.5 rounded-full ${exp.dot}`}
+                        />
+                      </div>
+
+                      {/* Contenu */}
+                      <div className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-5 rounded-2xl border border-gray-700 w-full hover:border-gray-500 transition-colors duration-300">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                          <h4
+                            className={`text-base sm:text-lg font-semibold ${exp.color}`}
+                          >
+                            {exp.company}
+                          </h4>
+                          <span className="text-xs text-gray-500 shrink-0">
+                            {exp.date}
+                          </span>
+                        </div>
+                        <p className="text-sm font-medium text-white mb-1">
+                          {exp.role}
+                        </p>
+                        <p className="text-xs sm:text-sm text-gray-400">
+                          {exp.description}
+                        </p>
+                      </div>
                     </div>
-                    <span className="text-xs sm:text-sm text-gray-400">
-                      Dec 2024 - Mars 2025
-                    </span>
-                  </div>
-                </div>
-                <div className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-2xl border border-gray-700">
-                  <div className="flex flex-col sm:flex-row justify-between items-start mb-4 gap-2">
-                    <div>
-                      <h4 className="text-lg sm:text-xl font-semibold text-purple-400">
-                        GRAFIKART
-                      </h4>
-                      <p className="text-sm sm:text-base text-gray-400">
-                        Figma
-                      </p>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-400">
-                      Mai 2025
-                    </span>
-                  </div>
-                </div>
-                <div className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-2xl border border-gray-700">
-                  <div className="flex flex-col sm:flex-row justify-between items-start mb-4 gap-2">
-                    <div>
-                      <h4 className="text-lg sm:text-xl font-semibold text-purple-400">
-                        RAPEX GROUP
-                      </h4>
-                      <p className="text-sm sm:text-base text-gray-400">
-                        Stagiaire en developpement web
-                      </p>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-400">
-                      Juin 2025 - Aout 2025
-                    </span>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

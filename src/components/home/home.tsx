@@ -106,7 +106,7 @@ export const Home: React.FC = () => {
       company: "GRAFIKART",
       role: "Formation Design & JavaScript avancé",
       description: "Figma, approfondissement JavaScript et TypeScript.",
-      date: "Mai 2025",
+      date: "2025",
       color: "text-purple-400",
       border: "border-purple-400",
       dot: "bg-purple-400",
@@ -124,39 +124,72 @@ export const Home: React.FC = () => {
   ];
 
   const skills = [
-    { name: "HTML", level: 90, icon: "/images/logo-html.png" },
-    { name: "CSS", level: 85, icon: "/images/logo-css.png" },
-    { name: "JavaScript", level: 88, icon: "/images/logo-js.png" },
-    { name: "Nestjs", level: 70, icon: "/images/nest.png" },
-    { name: "React Typescript", level: 75, icon: "/images/logo-react.png" },
-    { name: "PHP", level: 70, icon: "/images/logo-php.png" },
-    { name: "VS Code", level: 95, icon: "/images/logo-vscode.png" },
-    { name: "Figma", level: 78, icon: "/images/logo-figma.png" },
+    { name: "HTML", level: 90, cat: "Frontend", color: "#e2623a" },
+    { name: "CSS", level: 85, cat: "Frontend", color: "#2965f1" },
+    { name: "JavaScript", level: 88, cat: "Frontend", color: "#c9a800" },
+    { name: "React / TS", level: 75, cat: "Frontend", color: "#0ea5e9" },
+    { name: "PHP", level: 70, cat: "Backend", color: "#7c3aed" },
+    { name: "NestJS", level: 70, cat: "Backend", color: "#e0234e" },
+    { name: "Figma", level: 78, cat: "Design", color: "#a259ff" },
+    { name: "VS Code", level: 95, cat: "Outils", color: "#007acc" },
   ];
+
+  const categories = ["Tous", "Frontend", "Backend", "Design", "Outils"];
+  const [activeFilter, setActiveFilter] = useState("Tous");
+
+  const filteredSkills =
+    activeFilter === "Tous"
+      ? skills
+      : skills.filter((s) => s.cat === activeFilter);
+
+  const levelLabel = (l: number) => {
+    if (l >= 90) return "Expert";
+    if (l >= 80) return "Avancé";
+    if (l >= 70) return "Intermédiaire";
+    return "Débutant";
+  };
+
+  const catStyle: Record<string, { bg: string; text: string }> = {
+    Frontend: { bg: "rgba(59,130,246,0.15)", text: "#60a5fa" },
+    Backend: { bg: "rgba(124,58,237,0.15)", text: "#a78bfa" },
+    Design: { bg: "rgba(162,89,255,0.15)", text: "#c084fc" },
+    Outils: { bg: "rgba(16,185,129,0.15)", text: "#34d399" },
+  };
 
   const projects = [
     {
-      title: "Template portFolio",
-      description: "Html, Css, Js, Php, Vs Code",
+      title: "Template Portfolio",
+      description: "Site vitrine personnel avec design moderne",
       image: "/images/extrait portfolio.png",
       tags: ["HTML", "CSS", "JavaScript", "PHP"],
-      link: "#",
+      link: "https://template-portfolio-dun.vercel.app/",
+      github: "#",
     },
     {
       title: "MotorShop",
-      description: "Figma, Html, Css, Js, Php, Vs Code",
+      description: "Boutique en ligne pour pièces moto",
       image: "/images/extrait.PNG",
-      tags: ["HTML", "CSS", "JavaScript", "PHP"],
+      tags: ["Figma", "HTML", "CSS", "JavaScript", "PHP"],
       link: "#",
+      github: "#",
     },
     {
       title: "Titre projet",
-      description: "Figma, Html, Css, Js, Php, Vs Code",
+      description: "Description du projet à compléter",
       image: "/api/placeholder/400/300",
-      tags: ["HTML", "CSS", "JavaScript", "PHP"],
+      tags: ["Figma", "JavaScript", "PHP"],
       link: "#",
+      github: "#",
     },
   ];
+
+  const tagStyle: Record<string, string> = {
+    HTML: "bg-orange-500/10 text-orange-400 border border-orange-500/20",
+    CSS: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
+    JavaScript: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
+    PHP: "bg-purple-500/10 text-purple-400 border border-purple-500/20",
+    Figma: "bg-pink-500/10 text-pink-400 border border-pink-500/20",
+  };
 
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -504,36 +537,88 @@ export const Home: React.FC = () => {
       {/* Skills Section */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
             Skills
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {skills.map((skill, index) => (
-              <div
-                key={index}
-                className="bg-gray-900/60 backdrop-blur-md p-6 rounded-2xl border border-gray-800 hover:border-blue-500/70 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-500"
+
+          {/* Filtres */}
+          <div className="flex flex-wrap gap-2 justify-center mb-8 sm:mb-10">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                className={`group relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 overflow-hidden
+      ${
+        activeFilter === cat
+          ? "text-white shadow-lg scale-105"
+          : "text-gray-400 border border-gray-700 hover:text-white hover:border-gray-500 hover:scale-105"
+      }`}
+                style={
+                  activeFilter === cat
+                    ? {
+                        background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                        border: "none",
+                      }
+                    : {}
+                }
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={skill.icon}
-                      alt={skill.name}
-                      className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
-                    />
-                    <h3 className="text-lg sm:text-xl font-bold text-white">
-                      {skill.name}
-                    </h3>
-                  </div>
-                  <span className="text-blue-400 font-semibold text-sm sm:text-base">
+                {/* Glow effect au hover quand inactif */}
+                <span
+                  className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-10 transition-opacity duration-300 ${activeFilter !== cat ? "bg-white" : ""}`}
+                />
+                <span>{cat}</span>
+
+                {/* Dot animé si actif */}
+                {activeFilter === cat && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Grille */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {filteredSkills.map((skill, index) => (
+              <div
+                key={skill.name}
+                className="bg-gray-900/60 backdrop-blur-md p-5 rounded-2xl border border-gray-800 hover:border-gray-600 transition-all duration-300 flex flex-col gap-3"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                {/* Nom + % */}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-white">
+                    {skill.name}
+                  </span>
+                  <span className="text-sm font-medium text-gray-400">
                     {skill.level}%
                   </span>
                 </div>
 
-                <div className="w-full bg-gray-700/60 rounded-full h-2 overflow-hidden">
+                {/* Barre */}
+                <div className="w-full bg-gray-700/60 rounded-full h-1.5 overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-2 rounded-full transition-[width] duration-1000 ease-out"
-                    style={{ width: `${skill.level}%` }}
-                  ></div>
+                    className="h-1.5 rounded-full transition-all duration-1000 ease-out"
+                    style={{
+                      width: `${skill.level}%`,
+                      background: skill.color,
+                    }}
+                  />
+                </div>
+
+                {/* Badge + niveau */}
+                <div className="flex items-center justify-between">
+                  <span
+                    className="text-xs font-medium px-2.5 py-0.5 rounded-full"
+                    style={{
+                      background: catStyle[skill.cat].bg,
+                      color: catStyle[skill.cat].text,
+                    }}
+                  >
+                    {skill.cat}
+                  </span>
+                  <span className="text-xs text-gray-500">
+                    {levelLabel(skill.level)}
+                  </span>
                 </div>
               </div>
             ))}
@@ -544,43 +629,69 @@ export const Home: React.FC = () => {
       {/* Projects Section */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-            Mes Projets
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="text-center mb-10 sm:mb-14">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent mb-3">
+              Mes Projets
+            </h2>
+            <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
+              Quelques réalisations qui illustrent mon parcours et mes
+              compétences.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700 overflow-hidden hover:border-blue-500 transition-all duration-300 group"
+                className="group bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-gray-600 transition-all duration-300 hover:-translate-y-1"
+                style={{ animationDelay: `${index * 70}ms` }}
               >
-                <div className="relative overflow-hidden">
+                {/* Image */}
+                <div className="relative overflow-hidden h-44 sm:h-48 bg-gray-800">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute top-2 right-2 sm:top-4 sm:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+                  {/* Overlay avec boutons */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-3 gap-2">
                     <a
                       href={project.link}
-                      className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                      target="_blank"
+                      className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/25 transition-colors"
+                      title="Voir le projet"
                     >
-                      <ExternalLink size={16} className="sm:w-5 sm:h-5" />
+                      <ExternalLink size={15} className="text-white" />
                     </a>
+                    {/* <a
+                      href={project.github}
+                      target="_blank"
+                      className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/25 transition-colors"
+                      title="Code source"
+                    >
+                      <Github size={15} className="text-white" />
+                    </a> */}
                   </div>
                 </div>
-                <div className="p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-semibold mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-400 mb-4 text-sm sm:text-base">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, tagIndex) => (
+
+                {/* Contenu */}
+                <div className="p-4 sm:p-5 flex flex-col gap-3">
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-1">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.map((tag, i) => (
                       <span
-                        key={tagIndex}
-                        className="px-2 sm:px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs sm:text-sm"
+                        key={i}
+                        className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${tagStyle[tag] ?? "bg-gray-700 text-gray-300 border border-gray-600"}`}
                       >
                         {tag}
                       </span>
@@ -590,14 +701,21 @@ export const Home: React.FC = () => {
               </div>
             ))}
           </div>
-          <div
-            className="text-center mt-8 sm:mt-12"
-            onClick={() => {
-              navigate("/Projet");
-            }}
-          >
-            <button className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform text-sm sm:text-base">
-              Afficher tous
+
+          {/* Bouton afficher tous */}
+          <div className="text-center mt-10 sm:mt-14">
+            <button
+              onClick={() => navigate("/Projet")}
+              className="group relative inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-sm sm:text-base overflow-hidden transition-transform duration-200 hover:scale-105"
+              style={{
+                background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+              }}
+            >
+              <span>Voir tous les projets</span>
+              <ExternalLink
+                size={16}
+                className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </button>
           </div>
         </div>

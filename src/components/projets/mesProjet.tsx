@@ -234,18 +234,6 @@ export const ProjetPage: React.FC = () => {
     setMobileMenuOpen(false);
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Terminé":
-        return "bg-green-500/20 text-green-400";
-      case "En cours":
-        return "bg-yellow-500/20 text-yellow-400";
-      case "Planifié":
-        return "bg-blue-500/20 text-blue-400";
-      default:
-        return "bg-gray-500/20 text-gray-400";
-    }
-  };
 
   return (
     <div className="w-screen xl:px-25 relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">

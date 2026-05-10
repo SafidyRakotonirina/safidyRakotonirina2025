@@ -1,14 +1,26 @@
-import { ArrowUp, ExternalLink, Github, Code, Calendar, User, Tag, Menu, X, ArrowLeft, Send } from 'lucide-react';
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  ArrowUp,
+  ExternalLink,
+  Github,
+  Code,
+  Calendar,
+  User,
+  Tag,
+  Menu,
+  X,
+  ArrowLeft,
+  Send,
+} from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const ProjetPage: React.FC = () => {
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
   const navigate = useNavigate();
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -22,22 +34,24 @@ export const ProjetPage: React.FC = () => {
   const [isDiscussion, setIsDiscussion] = useState(false);
 
   const handleFormSubmit = () => {
-    console.log('Form submitted:', formData);
-    alert('Message envoyé avec succès!');
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    console.log("Form submitted:", formData);
+    alert("Message envoyé avec succès!");
+    setFormData({ name: "", email: "", phone: "", message: "" });
   };
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -45,131 +59,150 @@ export const ProjetPage: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const categories = [
-    { id: 'all', name: 'Tous', count: 6 },
-    { id: 'web', name: 'Web Development', count: 3 },
-    { id: 'mobile', name: 'Mobile', count: 2 },
-    { id: 'design', name: 'Design', count: 1 }
+    { id: "all", name: "Tous", count: 6 },
+    { id: "web", name: "Web Development", count: 3 },
+    { id: "mobile", name: "Mobile", count: 2 },
+    { id: "design", name: "Design", count: 1 },
   ];
 
   const projects = [
     {
       id: 1,
       title: "Template Portfolio",
-      description: "Un template de portfolio moderne et responsive avec des animations fluides et un design épuré. Parfait pour présenter vos projets et compétences.",
+      description:
+        "Un template de portfolio moderne et responsive avec des animations fluides et un design épuré. Parfait pour présenter vos projets et compétences.",
       image: "/images/extrait portfolio.png",
       tags: ["HTML", "CSS", "JavaScript", "PHP"],
       category: "web",
       date: "2024-12-15",
-      status: "Terminé",
       link: "https://template-portfolio-dun.vercel.app/",
       github: "#",
       features: [
         "Design responsive",
         "Animations CSS",
         "Formulaire de contact",
-        "Optimisation SEO"
-      ]
+        "Optimisation SEO",
+      ],
     },
     {
       id: 2,
       title: "MotorShop",
-      description: "Plateforme e-commerce dédiée à la vente de pièces automobiles avec système de recherche avancé et panier d'achat interactif.",
+      description:
+        "Plateforme e-commerce dédiée à la vente de pièces automobiles avec système de recherche avancé et panier d'achat interactif.",
       image: "/images/extrait.PNG",
       tags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
       category: "web",
       date: "2024-11-20",
-      status: "En cours",
       link: "#",
       github: "#",
       features: [
         "Catalogue produits",
         "Panier d'achat",
         "Système de recherche",
-        "Interface admin"
-      ]
+        "Interface admin",
+      ],
     },
     {
       id: 3,
       title: "Application Mobile Food",
-      description: "Application mobile pour la commande de nourriture en ligne avec géolocalisation et paiement intégré.",
+      description:
+        "Application mobile pour la commande de nourriture en ligne avec géolocalisation et paiement intégré.",
       image: "/api/placeholder/400/300",
       tags: ["React Native", "Node.js", "MongoDB"],
       category: "mobile",
       date: "2024-10-05",
-      status: "Terminé",
       link: "#",
       github: "#",
       features: [
         "Géolocalisation",
         "Paiement en ligne",
         "Notifications push",
-        "Interface intuitive"
-      ]
+        "Interface intuitive",
+      ],
     },
     {
       id: 4,
       title: "Dashboard Analytics",
-      description: "Tableau de bord analytique pour le suivi des performances avec graphiques interactifs et rapports personnalisés.",
+      description:
+        "Tableau de bord analytique pour le suivi des performances avec graphiques interactifs et rapports personnalisés.",
       image: "/api/placeholder/400/300",
       tags: ["React", "TypeScript", "Chart.js", "Node.js"],
       category: "web",
       date: "2024-09-18",
-      status: "Terminé",
       link: "#",
       github: "#",
       features: [
         "Graphiques interactifs",
         "Rapports PDF",
         "Filtres avancés",
-        "Export données"
-      ]
+        "Export données",
+      ],
     },
     {
       id: 5,
       title: "App Fitness Tracker",
-      description: "Application mobile de suivi fitness avec planification d'entraînements et suivi des objectifs personnels.",
+      description:
+        "Application mobile de suivi fitness avec planification d'entraînements et suivi des objectifs personnels.",
       image: "/api/placeholder/400/300",
       tags: ["Flutter", "Firebase", "Dart"],
       category: "mobile",
       date: "2024-08-30",
-      status: "En cours",
       link: "#",
       github: "#",
       features: [
         "Suivi d'activité",
         "Planification entrainements",
         "Statistiques détaillées",
-        "Objectifs personnalisés"
-      ]
+        "Objectifs personnalisés",
+      ],
     },
     {
       id: 6,
       title: "Brand Identity Design",
-      description: "Création d'identité visuelle complète pour une startup tech incluant logo, charte graphique et supports marketing.",
+      description:
+        "Création d'identité visuelle complète pour une startup tech incluant logo, charte graphique et supports marketing.",
       image: "/api/placeholder/400/300",
       tags: ["Figma", "Adobe Illustrator", "Photoshop"],
       category: "design",
       date: "2024-07-12",
-      status: "Terminé",
       link: "#",
       github: "#",
       features: [
         "Logo et identité",
         "Charte graphique",
         "Supports marketing",
-        "Guide d'utilisation"
-      ]
-    }
+        "Guide d'utilisation",
+      ],
+    },
   ];
 
-  const filteredProjects = selectedCategory === 'all'
-    ? projects
-    : projects.filter(project => project.category === selectedCategory);
+  const tagStyle: Record<string, string> = {
+    HTML: "bg-orange-500/10 text-orange-400 border border-orange-500/20",
+    CSS: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
+    JavaScript: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
+    PHP: "bg-purple-500/10 text-purple-400 border border-purple-500/20",
+    MySQL: "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20",
+    Figma: "bg-pink-500/10 text-pink-400 border border-pink-500/20",
+    React: "bg-sky-500/10 text-sky-400 border border-sky-500/20",
+    TypeScript: "bg-blue-600/10 text-blue-300 border border-blue-600/20",
+    "React Native": "bg-sky-500/10 text-sky-400 border border-sky-500/20",
+    "Node.js": "bg-green-500/10 text-green-400 border border-green-500/20",
+    MongoDB: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+    "Chart.js": "bg-rose-500/10 text-rose-400 border border-rose-500/20",
+    Flutter: "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20",
+    Firebase: "bg-amber-500/10 text-amber-400 border border-amber-500/20",
+    Dart: "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20",
+  };
+
+  const filteredProjects =
+    selectedCategory === "all"
+      ? projects
+      : projects.filter((project) => project.category === selectedCategory);
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -203,21 +236,23 @@ export const ProjetPage: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Terminé':
-        return 'bg-green-500/20 text-green-400';
-      case 'En cours':
-        return 'bg-yellow-500/20 text-yellow-400';
-      case 'Planifié':
-        return 'bg-blue-500/20 text-blue-400';
+      case "Terminé":
+        return "bg-green-500/20 text-green-400";
+      case "En cours":
+        return "bg-yellow-500/20 text-yellow-400";
+      case "Planifié":
+        return "bg-blue-500/20 text-blue-400";
       default:
-        return 'bg-gray-500/20 text-gray-400';
+        return "bg-gray-500/20 text-gray-400";
     }
   };
 
   return (
     <div className="w-screen xl:px-25 relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/80 backdrop-blur-md' : 'bg-transparent'}`}>
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-black/80 backdrop-blur-md" : "bg-transparent"}`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-2">
@@ -231,22 +266,22 @@ export const ProjetPage: React.FC = () => {
             <div className="hidden md:flex space-x-4 lg:space-x-8">
               <button
                 onClick={() => {
-                  setActiveSection('home');
-                  navigate('/home');
+                  setActiveSection("home");
+                  navigate("/home");
                 }}
-                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'projects' ? 'text-blue-400' : ''}`}
+                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === "projects" ? "text-blue-400" : ""}`}
               >
                 Accueil
               </button>
               <button
-                onClick={() => setActiveSection('projet')}
-                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'projet' ? 'text-blue-400' : ''}`}
+                onClick={() => setActiveSection("projet")}
+                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === "projet" ? "text-blue-400" : ""}`}
               >
                 Projets
               </button>
               <button
-                onClick={() => setActiveSection('contact')}
-                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === 'contact' ? 'text-blue-400' : ''}`}
+                onClick={() => setActiveSection("contact")}
+                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === "contact" ? "text-blue-400" : ""}`}
               >
                 Contact
               </button>
@@ -270,24 +305,27 @@ export const ProjetPage: React.FC = () => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               <button
                 onClick={() => {
-                  setActiveSection('home');
-                  navigate('/home');
+                  setActiveSection("home");
+                  navigate("/home");
                 }}
-                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === 'home' ? 'text-blue-400' : ''}`}
+                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === "home" ? "text-blue-400" : ""}`}
               >
                 Accueil
               </button>
               <button
                 onClick={() => {
-                  setActiveSection('projet');
+                  setActiveSection("projet");
                 }}
-                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === 'projet' ? 'text-blue-400' : ''}`}
+                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === "projet" ? "text-blue-400" : ""}`}
               >
                 Projets
               </button>
               <button
-                onClick={() => { setActiveSection('contact'); closeMobileMenu(); }}
-                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === 'contact' ? 'text-blue-400' : ''}`}
+                onClick={() => {
+                  setActiveSection("contact");
+                  closeMobileMenu();
+                }}
+                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === "contact" ? "text-blue-400" : ""}`}
               >
                 Contact
               </button>
@@ -302,17 +340,23 @@ export const ProjetPage: React.FC = () => {
           <div className="text-center space-y-6">
             <div className="inline-flex items-center gap-2 bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-700">
               <ArrowLeft size={16} />
-              <span className="text-sm text-gray-300 cursor-pointer" onClick={() => {
-                  setActiveSection('home');
-                  navigate('/home');
-                }}>Retour à l'accueil</span>
+              <span
+                className="text-sm text-gray-300 cursor-pointer"
+                onClick={() => {
+                  setActiveSection("home");
+                  navigate("/home");
+                }}
+              >
+                Retour à l'accueil
+              </span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
               Mes Projets
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto">
-              Découvrez mes créations et réalisations en développement web, mobile et design.
-              Chaque projet reflète ma passion pour l'innovation et la qualité.
+              Découvrez mes créations et réalisations en développement web,
+              mobile et design. Chaque projet reflète ma passion pour
+              l'innovation et la qualité.
             </p>
           </div>
         </div>
@@ -326,13 +370,35 @@ export const ProjetPage: React.FC = () => {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
-                    : 'bg-gray-800/50 backdrop-blur-sm text-gray-300 hover:bg-gray-700/50 border border-gray-700'
-                  }`}
+                className={`group relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 overflow-hidden
+      ${
+        selectedCategory === category.id
+          ? "text-white shadow-lg scale-105"
+          : "text-gray-400 border border-gray-700 hover:text-white hover:border-gray-500 hover:scale-105"
+      }`}
+                style={
+                  selectedCategory === category.id
+                    ? {
+                        background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                        border: "none",
+                      }
+                    : {}
+                }
               >
-                {category.name}
-                <span className="ml-2 text-xs opacity-70">({category.count})</span>
+                <span>{category.name}</span>
+                <span
+                  className={`text-xs px-1.5 py-0.5 rounded-full font-medium
+      ${
+        selectedCategory === category.id
+          ? "bg-white/20 text-white"
+          : "bg-gray-700 text-gray-400"
+      }`}
+                >
+                  {category.count}
+                </span>
+                {selectedCategory === category.id && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
+                )}
               </button>
             ))}
           </div>
@@ -342,65 +408,88 @@ export const ProjetPage: React.FC = () => {
       {/* Projects Grid */}
       <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredProjects.map((project) => (
-              <div key={project.id} className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700 overflow-hidden hover:border-blue-500 transition-all duration-300 group">
-                <div className="relative overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            {filteredProjects.map((project, index) => (
+              <div
+                key={project.id}
+                className="group bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-gray-600 transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                style={{ animationDelay: `${index * 70}ms` }}
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden h-48 sm:h-52 bg-gray-800">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-48 sm:h-56 object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
-                      {project.status}
-                    </span>
-                  </div>
-                  <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex gap-2">
-                      <a href={project.link} className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
-                        <ExternalLink size={16} className="sm:w-5 sm:h-5" />
-                      </a>
-                      <a href={project.github} className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
-                        <Github size={16} className="sm:w-5 sm:h-5" />
-                      </a>
-                    </div>
+
+                  {/* Date badge */}
+                  <span className="absolute top-3 right-3 bg-black/55 backdrop-blur-sm text-gray-300 text-xs px-2.5 py-1 rounded-full border border-white/10 flex items-center gap-1">
+                    <Calendar size={11} />
+                    {new Date(project.date).toLocaleDateString("fr-FR", {
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </span>
+
+                  {/* Overlay boutons */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-3 gap-2">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/25 transition-colors"
+                      title="Voir le projet"
+                    >
+                      <ExternalLink size={15} className="text-white" />
+                    </a>
+                    {/* <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/25 transition-colors"
+                      title="Code source"
+                    >
+                      <Github size={15} className="text-white" />
+                    </a> */}
                   </div>
                 </div>
 
-                <div className="p-4 sm:p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                {/* Contenu */}
+                <div className="p-4 sm:p-5 flex flex-col gap-3 flex-1">
+                  <div>
+                    <h3 className="text-base sm:text-lg font-semibold text-white group-hover:text-blue-400 transition-colors mb-1">
                       {project.title}
                     </h3>
-                    <div className="flex items-center text-xs text-gray-400 ml-2">
-                      <Calendar size={12} className="mr-1" />
-                      {new Date(project.date).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
-                    </div>
+                    <p className="text-xs sm:text-sm text-gray-400 leading-relaxed line-clamp-2">
+                      {project.description}
+                    </p>
                   </div>
 
-                  <p className="text-gray-300 mb-4 text-sm sm:text-base line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="px-2 sm:px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs sm:text-sm font-medium">
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${tagStyle[tag] ?? "bg-gray-700/60 text-gray-300 border border-gray-600/50"}`}
+                      >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-semibold text-gray-300 flex items-center gap-1">
-                      <Tag size={14} />
-                      Fonctionnalités clés:
-                    </h4>
-                    <ul className="text-xs text-gray-400 space-y-1">
-                      {project.features.slice(0, 3).map((feature, index) => (
-                        <li key={index} className="flex items-center gap-2">
-                          <span className="w-1 h-1 bg-blue-400 rounded-full"></span>
+                  {/* Fonctionnalités */}
+                  <div className="mt-auto pt-3 border-t border-gray-800">
+                    <p className="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1">
+                      <Tag size={11} /> Fonctionnalités
+                    </p>
+                    <ul className="space-y-1">
+                      {project.features.slice(0, 3).map((feature, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-xs text-gray-400"
+                        >
+                          <span className="w-1 h-1 rounded-full bg-blue-400 shrink-0" />
                           {feature}
                         </li>
                       ))}
@@ -421,29 +510,45 @@ export const ProjetPage: React.FC = () => {
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <Code size={24} className="sm:w-8 sm:h-8" />
               </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">6+</h3>
-              <p className="text-gray-400 text-sm sm:text-base">Projets Réalisés</p>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
+                6+
+              </h3>
+              <p className="text-gray-400 text-sm sm:text-base">
+                Projets Réalisés
+              </p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <User size={24} className="sm:w-8 sm:h-8" />
               </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">3+</h3>
-              <p className="text-gray-400 text-sm sm:text-base">Clients Satisfaits</p>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
+                3+
+              </h3>
+              <p className="text-gray-400 text-sm sm:text-base">
+                Clients Satisfaits
+              </p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <Calendar size={24} className="sm:w-8 sm:h-8" />
               </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">1+</h3>
-              <p className="text-gray-400 text-sm sm:text-base">Années d'Expérience</p>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
+                1+
+              </h3>
+              <p className="text-gray-400 text-sm sm:text-base">
+                Années d'Expérience
+              </p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <Tag size={24} className="sm:w-8 sm:h-8" />
               </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">8+</h3>
-              <p className="text-gray-400 text-sm sm:text-base">Technologies Maîtrisées</p>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
+                8+
+              </h3>
+              <p className="text-gray-400 text-sm sm:text-base">
+                Technologies Maîtrisées
+              </p>
             </div>
           </div>
         </div>
@@ -457,15 +562,21 @@ export const ProjetPage: React.FC = () => {
               Vous avez un projet en tête ?
             </h2>
             <p className="text-gray-300 mb-6 sm:mb-8 text-base sm:text-lg">
-              Discutons de vos idées et créons ensemble quelque chose d'exceptionnel.
-              Je suis toujours ouvert aux nouveaux défis et collaborations.
+              Discutons de vos idées et créons ensemble quelque chose
+              d'exceptionnel. Je suis toujours ouvert aux nouveaux défis et
+              collaborations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform text-sm sm:text-base"
-                onClick={() => setIsDiscussion(true)}>
+              <button
+                className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform text-sm sm:text-base"
+                onClick={() => setIsDiscussion(true)}
+              >
                 Discuter de mon projet
               </button>
-              <button className="border border-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm sm:text-base" onClick={handleDownload}>
+              <button
+                className="border border-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm sm:text-base"
+                onClick={handleDownload}
+              >
                 Voir mon CV
               </button>
             </div>
@@ -473,8 +584,8 @@ export const ProjetPage: React.FC = () => {
         </div>
       </section>
       {isDiscussion && (
-        <div className=' top-0 left-0 fixed flex items-center justify-center w-full py-12 sm:py-16 px-4 sm:px-6 lg:px-8 inset-0 bg-black/50 backdrop-blur-sm'>
-          <div className='inset-0 bg-white/30 backdrop-blur-sm p-10 rounded-xl'>
+        <div className=" top-0 left-0 fixed flex items-center justify-center w-full py-12 sm:py-16 px-4 sm:px-6 lg:px-8 inset-0 bg-black/50 backdrop-blur-sm">
+          <div className="inset-0 bg-white/30 backdrop-blur-sm p-10 rounded-xl">
             <div className="max-w-2xl mx-auto">
               <div className="space-y-4 sm:space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -522,7 +633,7 @@ export const ProjetPage: React.FC = () => {
                 <div className="text-center flex justify-between">
                   <button
                     className="bg-gradient-to-r from-blue-500 to-purple-600 px-8 sm:px-12 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform flex items-center gap-2 mx-auto text-sm sm:text-base"
-                    onClick={()=>setIsDiscussion(false)}
+                    onClick={() => setIsDiscussion(false)}
                   >
                     Fermer
                   </button>
@@ -559,10 +670,16 @@ export const ProjetPage: React.FC = () => {
               © Safidy Rakotonirina 2025
             </p>
             <div className="flex gap-3 sm:gap-4">
-              <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+              <a
+                href="#"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+              >
                 <Github size={16} className="sm:w-5 sm:h-5" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+              <a
+                href="#"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+              >
                 <ExternalLink size={16} className="sm:w-5 sm:h-5" />
               </a>
             </div>

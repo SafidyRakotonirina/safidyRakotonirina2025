@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+# Portfolio — Safidy Rakotonirina
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio personnel de **Safidy Rakotonirina**, développeur web fullstack.
 
-Currently, two official plugins are available:
+## Stack technique
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** + **TypeScript**
+- **Vite 7**
+- **Tailwind CSS 4** (`@tailwindcss/vite`)
+- **React Router 7**
+- **lucide-react** (icônes)
 
-## Expanding the ESLint configuration
+## Démarrage
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Le site est disponible sur `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Commande          | Description                              |
+| ----------------- | ---------------------------------------- |
+| `npm run dev`     | Serveur de développement (HMR)           |
+| `npm run build`   | Type-check + build de production         |
+| `npm run preview` | Prévisualise le build de production      |
+| `npm run lint`    | Analyse ESLint                           |
+
+## Structure
+
 ```
-=======
-# safidyRakotonirina2025
-mon portfolio a jour 2025
->>>>>>> 88db6ac2b7d742063c8b6abd15dc5c5ad3643452
+src/
+  config.ts              Configuration du site (email, réseaux, CV)
+  data/                  Contenu (projets, compétences, expériences)
+  hooks/                 Hooks réutilisables (scroll, machine à écrire)
+  lib/                   Utilitaires (téléchargement CV, mailto)
+  components/
+    layout/              Navbar, Footer
+    common/              ContactForm, SocialLinks, ScrollToTop, TypingCursor
+    home/                Page d'accueil + sections
+    projects/            ProjectCard
+    projets/             Page « Mes projets »
+```
+
+## Personnalisation
+
+Tout le contenu modifiable est centralisé dans :
+
+- `src/config.ts` — email, téléphone, URL du site, réseaux sociaux, CV.
+  Les liens sociaux laissés vides sont automatiquement masqués.
+- `src/data/projects.ts` — liste des projets.
+- `src/data/skills.ts` — compétences.
+- `src/data/experiences.ts` — expériences professionnelles.
+
+Les images sont dans `public/images` (format WebP recommandé).

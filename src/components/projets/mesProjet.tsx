@@ -1,679 +1,260 @@
+import { useMemo, useState } from "react";
 import {
-  ArrowUp,
-  ExternalLink,
-  Github,
-  Code,
-  Calendar,
-  User,
-  Tag,
-  Menu,
-  X,
   ArrowLeft,
-  Send,
+  Calendar,
+  Code,
+  Tag,
+  User,
 } from "lucide-react";
-import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Navbar } from "../layout/Navbar";
+import { Footer } from "../layout/Footer";
+import { ScrollToTopButton } from "../common/ScrollToTopButton";
+import { ContactForm } from "../common/ContactForm";
+import { ProjectCard } from "../projects/ProjectCard";
+import { SITE } from "../../config";
+import { downloadCv } from "../../lib/portfolio";
+import {
+  CATEGORY_LABELS,
+  CATEGORY_ORDER,
+  PROJECTS,
+} from "../../data/projects";
+import { SKILLS } from "../../data/skills";
+import { EXPERIENCES } from "../../data/experiences";
 
-export const ProjetPage: React.FC = () => {
-  const [activeSection, setActiveSection] = useState("home");
+const yearsOfExperience = Math.max(
+  1,
+  new Date().getFullYear() - SITE.careerStartYear,
+);
+
+export function ProjetPage() {
   const navigate = useNavigate();
-
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = "/cv-Rakotonirina SAFIDY Ny Aina.pdf";
-    link.download = "cv-Rakotonirina SAFIDY Ny Aina.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isDiscussion, setIsDiscussion] = useState(false);
 
-  const handleFormSubmit = () => {
-    console.log("Form submitted:", formData);
-    alert("Message envoyé avec succès!");
-    setFormData({ name: "", email: "", phone: "", message: "" });
-  };
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  const categories = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const project of PROJECTS) {
+      counts[project.category] = (counts[project.category] ?? 0) + 1;
+    }
+    return [
+      { id: "all", name: "Tous", count: PROJECTS.length },
+      ...CATEGORY_ORDER.filter((category) => counts[category]).map(
+        (category) => ({
+          id: category,
+          name: CATEGORY_LABELS[category],
+          count: counts[category],
+        }),
+      ),
+    ];
   }, []);
-
-  const categories = [
-    { id: "all", name: "Tous", count: 6 },
-    { id: "web", name: "Web Development", count: 3 },
-    { id: "mobile", name: "Mobile", count: 2 },
-    { id: "design", name: "Design", count: 1 },
-  ];
-
-  const projects = [
-    {
-      id: 1,
-      title: "Template Portfolio",
-      description:
-        "Un template de portfolio moderne et responsive avec des animations fluides et un design épuré. Parfait pour présenter vos projets et compétences.",
-      image: "/images/extrait portfolio.png",
-      tags: ["HTML", "CSS", "JavaScript", "PHP"],
-      category: "web",
-      date: "2024-12-15",
-      link: "https://template-portfolio-dun.vercel.app/",
-      github: "#",
-      features: [
-        "Design responsive",
-        "Animations CSS",
-        "Formulaire de contact",
-        "Optimisation SEO",
-      ],
-    },
-    {
-      id: 2,
-      title: "MotorShop",
-      description:
-        "Plateforme e-commerce dédiée à la vente de pièces automobiles avec système de recherche avancé et panier d'achat interactif.",
-      image: "/images/extrait.PNG",
-      tags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
-      category: "web",
-      date: "2024-11-20",
-      link: "#",
-      github: "#",
-      features: [
-        "Catalogue produits",
-        "Panier d'achat",
-        "Système de recherche",
-        "Interface admin",
-      ],
-    },
-    {
-      id: 3,
-      title: "Application Mobile Food",
-      description:
-        "Application mobile pour la commande de nourriture en ligne avec géolocalisation et paiement intégré.",
-      image: "/api/placeholder/400/300",
-      tags: ["React Native", "Node.js", "MongoDB"],
-      category: "mobile",
-      date: "2024-10-05",
-      link: "#",
-      github: "#",
-      features: [
-        "Géolocalisation",
-        "Paiement en ligne",
-        "Notifications push",
-        "Interface intuitive",
-      ],
-    },
-    {
-      id: 4,
-      title: "Dashboard Analytics",
-      description:
-        "Tableau de bord analytique pour le suivi des performances avec graphiques interactifs et rapports personnalisés.",
-      image: "/api/placeholder/400/300",
-      tags: ["React", "TypeScript", "Chart.js", "Node.js"],
-      category: "web",
-      date: "2024-09-18",
-      link: "#",
-      github: "#",
-      features: [
-        "Graphiques interactifs",
-        "Rapports PDF",
-        "Filtres avancés",
-        "Export données",
-      ],
-    },
-    {
-      id: 5,
-      title: "App Fitness Tracker",
-      description:
-        "Application mobile de suivi fitness avec planification d'entraînements et suivi des objectifs personnels.",
-      image: "/api/placeholder/400/300",
-      tags: ["Flutter", "Firebase", "Dart"],
-      category: "mobile",
-      date: "2024-08-30",
-      link: "#",
-      github: "#",
-      features: [
-        "Suivi d'activité",
-        "Planification entrainements",
-        "Statistiques détaillées",
-        "Objectifs personnalisés",
-      ],
-    },
-    {
-      id: 6,
-      title: "Brand Identity Design",
-      description:
-        "Création d'identité visuelle complète pour une startup tech incluant logo, charte graphique et supports marketing.",
-      image: "/api/placeholder/400/300",
-      tags: ["Figma", "Adobe Illustrator", "Photoshop"],
-      category: "design",
-      date: "2024-07-12",
-      link: "#",
-      github: "#",
-      features: [
-        "Logo et identité",
-        "Charte graphique",
-        "Supports marketing",
-        "Guide d'utilisation",
-      ],
-    },
-  ];
-
-  const tagStyle: Record<string, string> = {
-    HTML: "bg-orange-500/10 text-orange-400 border border-orange-500/20",
-    CSS: "bg-blue-500/10 text-blue-400 border border-blue-500/20",
-    JavaScript: "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20",
-    PHP: "bg-purple-500/10 text-purple-400 border border-purple-500/20",
-    MySQL: "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20",
-    Figma: "bg-pink-500/10 text-pink-400 border border-pink-500/20",
-    React: "bg-sky-500/10 text-sky-400 border border-sky-500/20",
-    TypeScript: "bg-blue-600/10 text-blue-300 border border-blue-600/20",
-    "React Native": "bg-sky-500/10 text-sky-400 border border-sky-500/20",
-    "Node.js": "bg-green-500/10 text-green-400 border border-green-500/20",
-    MongoDB: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
-    "Chart.js": "bg-rose-500/10 text-rose-400 border border-rose-500/20",
-    Flutter: "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20",
-    Firebase: "bg-amber-500/10 text-amber-400 border border-amber-500/20",
-    Dart: "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20",
-  };
 
   const filteredProjects =
     selectedCategory === "all"
-      ? projects
-      : projects.filter((project) => project.category === selectedCategory);
+      ? PROJECTS
+      : PROJECTS.filter((project) => project.category === selectedCategory);
 
-  const [isVisible, setIsVisible] = useState(false);
-
-  const toggleVisibility = () => {
-    if (window.scrollY > 200) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
-
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-  };
-
+  const stats = [
+    {
+      icon: Code,
+      gradient: "from-blue-500 to-purple-600",
+      value: `${PROJECTS.length}`,
+      label: "Projets réalisés",
+    },
+    {
+      icon: User,
+      gradient: "from-green-500 to-blue-500",
+      value: `${EXPERIENCES.length}`,
+      label: "Expériences",
+    },
+    {
+      icon: Calendar,
+      gradient: "from-purple-500 to-pink-500",
+      value: `${yearsOfExperience}+`,
+      label: "Années d'expérience",
+    },
+    {
+      icon: Tag,
+      gradient: "from-yellow-500 to-orange-500",
+      value: `${SKILLS.length}`,
+      label: "Technologies maîtrisées",
+    },
+  ];
 
   return (
-    <div className="w-screen xl:px-25 relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
-      {/* Navigation */}
-      <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-black/80 backdrop-blur-md" : "bg-transparent"}`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center font-bold text-sm sm:text-base">
-                SR
-              </div>
-              <span className="text-lg sm:text-xl font-bold">Safidy</span>
-            </div>
+    <div className="min-h-screen w-full relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
+      <Navbar activeSection="projects" />
 
-            {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-4 lg:space-x-8">
+      <main>
+        <section className="pt-20 pb-12 sm:pt-24 sm:pb-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center space-y-6">
               <button
-                onClick={() => {
-                  setActiveSection("home");
-                  navigate("/home");
-                }}
-                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === "projects" ? "text-blue-400" : ""}`}
+                onClick={() => navigate("/")}
+                className="inline-flex items-center gap-2 bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-700 hover:border-gray-500 transition-colors"
               >
-                Accueil
-              </button>
-              <button
-                onClick={() => setActiveSection("projet")}
-                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === "projet" ? "text-blue-400" : ""}`}
-              >
-                Projets
-              </button>
-              <button
-                onClick={() => setActiveSection("contact")}
-                className={`hover:text-blue-400 transition-colors text-sm lg:text-base ${activeSection === "contact" ? "text-blue-400" : ""}`}
-              >
-                Contact
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <button
-                onClick={toggleMobileMenu}
-                className="text-white hover:text-blue-400 focus:outline-none"
-              >
-                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-black/90 backdrop-blur-md border-t border-gray-700">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <button
-                onClick={() => {
-                  setActiveSection("home");
-                  navigate("/home");
-                }}
-                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === "home" ? "text-blue-400" : ""}`}
-              >
-                Accueil
-              </button>
-              <button
-                onClick={() => {
-                  setActiveSection("projet");
-                }}
-                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === "projet" ? "text-blue-400" : ""}`}
-              >
-                Projets
-              </button>
-              <button
-                onClick={() => {
-                  setActiveSection("contact");
-                  closeMobileMenu();
-                }}
-                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:text-blue-400 transition-colors ${activeSection === "contact" ? "text-blue-400" : ""}`}
-              >
-                Contact
-              </button>
-            </div>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section className="pt-20 pb-12 sm:pt-24 sm:pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-6">
-            <div className="inline-flex items-center gap-2 bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-700">
-              <ArrowLeft size={16} />
-              <span
-                className="text-sm text-gray-300 cursor-pointer"
-                onClick={() => {
-                  setActiveSection("home");
-                  navigate("/home");
-                }}
-              >
-                Retour à l'accueil
-              </span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-              Mes Projets
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto">
-              Découvrez mes créations et réalisations en développement web,
-              mobile et design. Chaque projet reflète ma passion pour
-              l'innovation et la qualité.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Filter Section */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`group relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 overflow-hidden
-      ${
-        selectedCategory === category.id
-          ? "text-white shadow-lg scale-105"
-          : "text-gray-400 border border-gray-700 hover:text-white hover:border-gray-500 hover:scale-105"
-      }`}
-                style={
-                  selectedCategory === category.id
-                    ? {
-                        background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-                        border: "none",
-                      }
-                    : {}
-                }
-              >
-                <span>{category.name}</span>
-                <span
-                  className={`text-xs px-1.5 py-0.5 rounded-full font-medium
-      ${
-        selectedCategory === category.id
-          ? "bg-white/20 text-white"
-          : "bg-gray-700 text-gray-400"
-      }`}
-                >
-                  {category.count}
+                <ArrowLeft size={16} />
+                <span className="text-sm text-gray-300">
+                  Retour à l'accueil
                 </span>
-                {selectedCategory === category.id && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
-                )}
               </button>
-            ))}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                Mes Projets
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto">
+                Découvrez mes créations et réalisations en développement web,
+                mobile et design. Chaque projet reflète ma passion pour
+                l'innovation et la qualité.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Projects Grid */}
-      <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-            {filteredProjects.map((project, index) => (
-              <div
-                key={project.id}
-                className="group bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-gray-600 transition-all duration-300 hover:-translate-y-1 flex flex-col"
-                style={{ animationDelay: `${index * 70}ms` }}
-              >
-                {/* Image */}
-                <div className="relative overflow-hidden h-48 sm:h-52 bg-gray-800">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-
-                  {/* Date badge */}
-                  <span className="absolute top-3 right-3 bg-black/55 backdrop-blur-sm text-gray-300 text-xs px-2.5 py-1 rounded-full border border-white/10 flex items-center gap-1">
-                    <Calendar size={11} />
-                    {new Date(project.date).toLocaleDateString("fr-FR", {
-                      month: "short",
-                      year: "numeric",
-                    })}
+        <section className="py-8 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`group relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 overflow-hidden ${
+                    selectedCategory === category.id
+                      ? "text-white shadow-lg scale-105"
+                      : "text-gray-400 border border-gray-700 hover:text-white hover:border-gray-500 hover:scale-105"
+                  }`}
+                  style={
+                    selectedCategory === category.id
+                      ? {
+                          background:
+                            "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                          border: "none",
+                        }
+                      : {}
+                  }
+                >
+                  <span>{category.name}</span>
+                  <span
+                    className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${
+                      selectedCategory === category.id
+                        ? "bg-white/20 text-white"
+                        : "bg-gray-700 text-gray-400"
+                    }`}
+                  >
+                    {category.count}
                   </span>
-
-                  {/* Overlay boutons */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-3 gap-2">
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/25 transition-colors"
-                      title="Voir le projet"
-                    >
-                      <ExternalLink size={15} className="text-white" />
-                    </a>
-                    {/* <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/25 transition-colors"
-                      title="Code source"
-                    >
-                      <Github size={15} className="text-white" />
-                    </a> */}
-                  </div>
-                </div>
-
-                {/* Contenu */}
-                <div className="p-4 sm:p-5 flex flex-col gap-3 flex-1">
-                  <div>
-                    <h3 className="text-base sm:text-lg font-semibold text-white group-hover:text-blue-400 transition-colors mb-1">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-gray-400 leading-relaxed line-clamp-2">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tags.map((tag, i) => (
-                      <span
-                        key={i}
-                        className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${tagStyle[tag] ?? "bg-gray-700/60 text-gray-300 border border-gray-600/50"}`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Fonctionnalités */}
-                  <div className="mt-auto pt-3 border-t border-gray-800">
-                    <p className="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1">
-                      <Tag size={11} /> Fonctionnalités
-                    </p>
-                    <ul className="space-y-1">
-                      {project.features.slice(0, 3).map((feature, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center gap-2 text-xs text-gray-400"
-                        >
-                          <span className="w-1 h-1 rounded-full bg-blue-400 shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <Code size={24} className="sm:w-8 sm:h-8" />
-              </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
-                6+
-              </h3>
-              <p className="text-gray-400 text-sm sm:text-base">
-                Projets Réalisés
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <User size={24} className="sm:w-8 sm:h-8" />
-              </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
-                3+
-              </h3>
-              <p className="text-gray-400 text-sm sm:text-base">
-                Clients Satisfaits
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <Calendar size={24} className="sm:w-8 sm:h-8" />
-              </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
-                1+
-              </h3>
-              <p className="text-gray-400 text-sm sm:text-base">
-                Années d'Expérience
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <Tag size={24} className="sm:w-8 sm:h-8" />
-              </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
-                8+
-              </h3>
-              <p className="text-gray-400 text-sm sm:text-base">
-                Technologies Maîtrisées
-              </p>
+                  {selectedCategory === category.id && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse" />
+                  )}
+                </button>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-gradient-to-r from-blue-500/10 to-purple-600/10 backdrop-blur-sm rounded-3xl p-8 sm:p-12 border border-gray-700">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-              Vous avez un projet en tête ?
-            </h2>
-            <p className="text-gray-300 mb-6 sm:mb-8 text-base sm:text-lg">
-              Discutons de vos idées et créons ensemble quelque chose
-              d'exceptionnel. Je suis toujours ouvert aux nouveaux défis et
-              collaborations.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform text-sm sm:text-base"
-                onClick={() => setIsDiscussion(true)}
-              >
-                Discuter de mon projet
-              </button>
-              <button
-                className="border border-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm sm:text-base"
-                onClick={handleDownload}
-              >
-                Voir mon CV
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-      {isDiscussion && (
-        <div className=" top-0 left-0 fixed flex items-center justify-center w-full py-12 sm:py-16 px-4 sm:px-6 lg:px-8 inset-0 bg-black/50 backdrop-blur-sm">
-          <div className="inset-0 bg-white/30 backdrop-blur-sm p-10 rounded-xl">
-            <div className="max-w-2xl mx-auto">
-              <div className="space-y-4 sm:space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                  <div>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="Votre nom"
-                      className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="Votre email"
-                      className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder="Votre numero de telephone"
-                    className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors text-sm sm:text-base"
+        <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            {filteredProjects.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+                {filteredProjects.map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    detailed
                   />
-                </div>
-                <div>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Votre message"
-                    rows={5}
-                    className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none transition-colors resize-none text-sm sm:text-base"
-                  ></textarea>
-                </div>
-                <div className="text-center flex justify-between">
-                  <button
-                    className="bg-gradient-to-r from-blue-500 to-purple-600 px-8 sm:px-12 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform flex items-center gap-2 mx-auto text-sm sm:text-base"
-                    onClick={() => setIsDiscussion(false)}
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-gray-400 py-12">
+                Aucun projet dans cette catégorie pour le moment.
+              </p>
+            )}
+          </div>
+        </section>
+
+        <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div
+                    className={`w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r ${stat.gradient} rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4`}
                   >
-                    Fermer
-                  </button>
-                  <button
-                    onClick={handleFormSubmit}
-                    className="bg-gradient-to-r from-blue-500 to-purple-600 px-8 sm:px-12 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform flex items-center gap-2 mx-auto text-sm sm:text-base"
-                  >
-                    <Send size={18} />
-                    Envoyer
-                  </button>
+                    <stat.icon size={24} className="sm:w-8 sm:h-8" />
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
+                    {stat.value}
+                  </h3>
+                  <p className="text-gray-400 text-sm sm:text-base">
+                    {stat.label}
+                  </p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="bg-gradient-to-r from-blue-500/10 to-purple-600/10 backdrop-blur-sm rounded-3xl p-8 sm:p-12 border border-gray-700">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                Vous avez un projet en tête ?
+              </h2>
+              <p className="text-gray-300 mb-6 sm:mb-8 text-base sm:text-lg">
+                Discutons de vos idées et créons ensemble quelque chose
+                d'exceptionnel. Je suis toujours ouvert aux nouveaux défis et
+                collaborations.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:scale-105 transition-transform text-sm sm:text-base"
+                  onClick={() => setIsDiscussion(true)}
+                >
+                  Discuter de mon projet
+                </button>
+                <button
+                  className="border border-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm sm:text-base"
+                  onClick={downloadCv}
+                >
+                  Voir mon CV
+                </button>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        </section>
+      </main>
 
-      {/* Scroll to Top Button */}
-      {isVisible && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-blue-600 hover:bg-blue-700 text-white p-2 sm:p-3 rounded-full shadow-lg transition duration-300 z-50"
-          aria-label="Remonter en haut"
+      {isDiscussion && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Formulaire de contact"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          onClick={() => setIsDiscussion(false)}
         >
-          <ArrowUp size={18} className="sm:w-5 sm:h-5" />
-        </button>
-      )}
-
-      {/* Footer */}
-      <footer className="py-6 sm:py-8 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm sm:text-base text-center sm:text-left">
-              © Safidy Rakotonirina 2025
-            </p>
-            <div className="flex gap-3 sm:gap-4">
-              <a
-                href="#"
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+          <div
+            className="w-full max-w-2xl bg-gray-900 border border-gray-700 p-6 sm:p-10 rounded-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl sm:text-2xl font-bold">
+                Parlons de votre projet
+              </h3>
+              <button
+                onClick={() => setIsDiscussion(false)}
+                aria-label="Fermer"
+                className="text-gray-400 hover:text-white transition-colors"
               >
-                <Github size={16} className="sm:w-5 sm:h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-              >
-                <ExternalLink size={16} className="sm:w-5 sm:h-5" />
-              </a>
+                ✕
+              </button>
             </div>
+            <ContactForm />
           </div>
         </div>
-      </footer>
+      )}
+
+      <Footer />
+      <ScrollToTopButton />
     </div>
   );
-};
+}

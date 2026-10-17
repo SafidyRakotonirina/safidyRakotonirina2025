@@ -13,7 +13,6 @@ import { ScrollToTopButton } from "../common/ScrollToTopButton";
 import { ContactForm } from "../common/ContactForm";
 import { ProjectCard } from "../projects/ProjectCard";
 import { SITE } from "../../config";
-import { downloadCv } from "../../lib/portfolio";
 import {
   CATEGORY_LABELS,
   CATEGORY_ORDER,
@@ -214,7 +213,7 @@ export function ProjetPage() {
                 </button>
                 <button
                   className="border border-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm sm:text-base"
-                  onClick={downloadCv}
+                  onClick={() => navigate("/cv")}
                 >
                   Voir mon CV
                 </button>

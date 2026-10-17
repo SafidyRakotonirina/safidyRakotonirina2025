@@ -10,7 +10,6 @@ import { Projects } from "./sections/Projects";
 import { Contact } from "./sections/Contact";
 import { useRoleTyping } from "../../hooks/useRoleTyping";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
-import { downloadCv } from "../../lib/portfolio";
 
 const SECTION_IDS = ["home", "about", "skills", "projects", "contact"];
 
@@ -48,7 +47,7 @@ export function Home() {
         <Hero
           heroDisplayed={heroDisplayed}
           currentColor={currentColor}
-          onDownload={downloadCv}
+          onOpenCv={() => navigate("/cv")}
           onViewProjects={scrollToProjects}
         />
         <About aboutDisplayed={aboutDisplayed} currentColor={currentColor} />

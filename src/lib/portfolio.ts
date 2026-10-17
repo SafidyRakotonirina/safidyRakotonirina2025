@@ -14,15 +14,6 @@ export const EMPTY_CONTACT: ContactPayload = {
   message: "",
 };
 
-export function downloadCv(): void {
-  const link = document.createElement("a");
-  link.href = SITE.cvUrl;
-  link.download = SITE.cvUrl.split("/").pop() ?? "cv.pdf";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
 export function sendByMailto(data: ContactPayload): void {
   const subject = `Contact portfolio — ${data.name || "Nouveau message"}`;
   const body = [

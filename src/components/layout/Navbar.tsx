@@ -15,6 +15,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: "about", label: "À propos" },
   { id: "skills", label: "Compétences" },
   { id: "projects", label: "Projets", route: "/projets" },
+  { id: "cv", label: "CV", route: "/cv" },
   { id: "contact", label: "Contact" },
 ];
 

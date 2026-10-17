@@ -26,3 +26,39 @@
     opacity: 0;
   }
 }
+
+.cv-sheet {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+@page {
+  size: A4;
+  margin: 10mm;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  .cv-page {
+    background: #ffffff !important;
+    min-height: auto !important;
+  }
+
+  .cv-page > div {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .cv-sheet {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+}

@@ -5,14 +5,14 @@ import { TypingCursor } from "../../common/TypingCursor";
 interface HeroProps {
   heroDisplayed: string;
   currentColor: string;
-  onDownload: () => void;
+  onOpenCv: () => void;
   onViewProjects: () => void;
 }
 
 export function Hero({
   heroDisplayed,
   currentColor,
-  onDownload,
+  onOpenCv,
   onViewProjects,
 }: HeroProps) {
   return (
@@ -43,7 +43,7 @@ export function Hero({
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button
-                onClick={onDownload}
+                onClick={onOpenCv}
                 className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 sm:px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform flex items-center gap-2 justify-center text-sm sm:text-base"
               >
                 <Download size={18} />

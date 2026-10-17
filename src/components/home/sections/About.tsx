@@ -20,7 +20,7 @@ export function About({ aboutDisplayed, currentColor }: AboutProps) {
             </h2>
             <div className="space-y-4 sm:space-y-6 text-sm sm:text-base lg:text-lg text-gray-300 text-center lg:text-left">
               <p>
-                Bonjour, je m'appelle Safidy et je suis un{" "}
+                Bonjour, je m'appelle Safidy et je suis un développeur {" "}
                 <span style={{ color: currentColor }} className="font-semibold">
                   {aboutDisplayed}
                   <TypingCursor color={currentColor} />

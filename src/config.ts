@@ -12,7 +12,7 @@ export const SITE = {
   initials: "SR",
   title: "Safidy Rakotonirina | Développeur Web Fullstack",
   description:
-    "Portfolio de Safidy Rakotonirina, développeur web fullstack (front-end, back-end et mobile). Découvre mes projets, compétences et comment me contacter.",
+    "Portfolio de Safidy Rakotonirina, développeur web fullstack (frontend, backend et mobile). Découvre mes projets, compétences et comment me contacter.",
   url: "https://safidy-rakotonirina.vercel.app",
   email: "safidyrktnr@gmail.com",
   phone: "+261 34 22 661 49",

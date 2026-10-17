@@ -1,4 +1,5 @@
 import { Calendar, ExternalLink, Tag } from "lucide-react";
+import { Link } from "react-router-dom";
 import { DEFAULT_TAG_STYLE, TAG_STYLES } from "../../data/projects";
 import type { Project } from "../../data/projects";
 
@@ -15,9 +16,16 @@ export function ProjectCard({
 }: ProjectCardProps) {
   return (
     <div
-      className="group bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-gray-600 transition-all duration-300 hover:-translate-y-1 flex flex-col"
+      className="group relative bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-gray-600 transition-all duration-300 hover:-translate-y-1 flex flex-col"
       style={{ animationDelay: `${index * 70}ms` }}
     >
+      {project.slug && (
+        <Link
+          to={`/projets/${project.slug}`}
+          className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          aria-label={`Voir le détail du projet ${project.title}`}
+        />
+      )}
       <div
         className={`relative overflow-hidden bg-gray-800 ${
           detailed ? "h-48 sm:h-52" : "h-44 sm:h-48"
@@ -42,14 +50,14 @@ export function ProjectCard({
         )}
 
         {project.link && (
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-3 gap-2">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-3">
             <a
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/25 transition-colors"
-              title="Voir le projet"
-              aria-label={`Voir le projet ${project.title}`}
+              className="relative z-20 w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/25 transition-colors"
+              title="Voir le projet en ligne"
+              aria-label={`Voir le projet ${project.title} en ligne`}
             >
               <ExternalLink size={15} className="text-white" />
             </a>
@@ -58,14 +66,25 @@ export function ProjectCard({
       </div>
 
       <div className="p-4 sm:p-5 flex flex-col gap-3 flex-1">
-        <div>
-          <h3
-            className={`text-base sm:text-lg font-semibold text-white mb-1 ${
-              detailed ? "group-hover:text-blue-400 transition-colors" : ""
-            }`}
-          >
-            {project.title}
-          </h3>
+        <div className="flex-1">
+          <div className="flex items-center gap-2.5 mb-1">
+            {project.logo && (
+              <img
+                src={project.logo}
+                alt={`Logo ${project.title}`}
+                loading="lazy"
+                decoding="async"
+                className="h-7 w-7 rounded-md bg-gray-800/70 border border-gray-700 p-0.5 object-contain shrink-0"
+              />
+            )}
+            <h3
+              className={`text-base sm:text-lg font-semibold text-white ${
+                detailed ? "group-hover:text-blue-400 transition-colors" : ""
+              }`}
+            >
+              {project.title}
+            </h3>
+          </div>
           <p
             className={`text-xs sm:text-sm text-gray-400 leading-relaxed ${
               detailed ? "line-clamp-2" : ""

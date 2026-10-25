@@ -19,24 +19,27 @@ export function About({ aboutDisplayed, currentColor }: AboutProps) {
               À PROPOS DE MOI
             </h2>
             <div className="space-y-4 sm:space-y-6 text-sm sm:text-base lg:text-lg text-gray-300 text-center lg:text-left">
-              <p>
-                Bonjour, je m'appelle Safidy et je suis un développeur {" "}
-                <span style={{ color: currentColor }} className="font-semibold">
-                  {aboutDisplayed}
-                  <TypingCursor color={currentColor} />
-                </span>{" "}
-                passionné. Je maîtrise plusieurs langages de programmation, dont{" "}
-                <span className="text-yellow-400">HTML</span>,{" "}
-                <span className="text-blue-400">CSS</span>,{" "}
-                <span className="text-yellow-300">JavaScript</span> et{" "}
-                <span className="text-purple-400">PHP</span>.
-              </p>
-              <p>
-                Toujours curieux et motivé, j'aime découvrir de nouvelles
-                technologies et m'investir pleinement dans le plaisir
-                d'apprendre et de les maîtriser.
-              </p>
-            </div>
+  <p>
+    Développeur{" "}
+    <span style={{ color: currentColor }} className="font-semibold">
+      {aboutDisplayed}
+      <TypingCursor color={currentColor} />
+    </span>{" "}
+    passionné, je conçois et je maintiens des applications web modernes,
+    rapides et responsives. Le développement web et la programmation sont
+    pour moi une véritable passion.
+  </p>
+  <p>
+    Aujourd'hui, je souhaite mettre mes compétences en{" "}
+    <span className="text-blue-400">React</span>,{" "}
+    <span className="text-blue-300">TypeScript</span>,{" "}
+    <span className="text-green-400">Node.js</span>,{" "}
+    <span className="text-red-400">NestJS</span> et{" "}
+    <span className="text-purple-400">PHP</span> au service des
+    entreprises, en apportant à la fois ma rigueur et ma créativité
+    technique.
+  </p>
+</div>
           </div>
 
           <div>
